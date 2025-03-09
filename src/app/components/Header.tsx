@@ -10,6 +10,7 @@ import { jwtDecode } from "jwt-decode";
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState(false); // Thêm state để kiểm tra quyền admin
 
   useEffect(() => {
     async function fetchToken() {
@@ -22,9 +23,10 @@ export default function Header() {
 
         const decodedToken = jwtDecode(serverToken);
         const roles = decodedToken.role;
-        console.log("role", roles);
+        console.log("role", roles[0]);
 
         setIsLoggedIn(!!serverToken);
+        setIsAdmin(roles[0] === "ADMIN"); // Kiểm tra quyền admin
       } catch (error) {
         console.error("Lỗi giải mã token:", error);
       }
@@ -47,9 +49,7 @@ export default function Header() {
   return (
     <header className="h-16 fixed top-0 left-0 w-full bg-gradient-to-r from-blue-400 to-purple-500 text-white shadow-md z-50">
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <Link
-          href="/"
-        >
+        <Link href="/">
           <h1 className="text-2xl font-bold tracking-tight">My Website</h1>
           <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
         </Link>
@@ -67,6 +67,17 @@ export default function Header() {
 
             {isLoggedIn ? (
               <>
+                {isAdmin && ( // Chỉ hiển thị nếu là admin
+                  <li>
+                    <Link
+                      href="/dashboard"
+                      className="relative group text-white hover:text-gray-200 transition-colors duration-200 transform hover:scale-105"
+                    >
+                      DashBoard
+                      <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+                    </Link>
+                  </li>
+                )}
                 <li>
                   <Link
                     href="/profile"
