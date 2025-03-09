@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { getServerCookie } from "./components/GetServerCookie";
-export default function Home() {
+
+function Home() {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
@@ -26,3 +27,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;

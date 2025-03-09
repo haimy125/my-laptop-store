@@ -7,8 +7,8 @@ export async function setServerCookie(
   value: string,
   days: number = 7
 ) {
-  const cookieStore = cookies();
-  await cookieStore.set(cookieName, value, {
+  const cookieStore = await cookies();
+  cookieStore.set(cookieName, value, {
     path: "/",
     maxAge: days * 24 * 60 * 60, // Chuyển đổi ngày thành giây
     httpOnly: true,

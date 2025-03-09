@@ -12,7 +12,6 @@ const OAuthSuccessPage = () => {
   useEffect(() => {
     const handleToken = async () => {
       const serverToken = await getServerCookie("jwtToken");
-      console.log("Token nhận được:", serverToken);
 
       if (!serverToken) {
         console.error("Không tìm thấy token trong cookie.");

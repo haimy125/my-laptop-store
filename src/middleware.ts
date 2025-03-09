@@ -5,12 +5,22 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const jwtToken = request.cookies.get("jwtToken");
 
+  // Kiểm tra xem người dùng đang truy cập trang chủ hay không
+  if (request.nextUrl.pathname === "/") {
+    // Không chuyển hướng nếu đang truy cập trang chủ
+    return NextResponse.next(); // Cho phép request tiếp tục
+  }
+
   if (jwtToken == undefined) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
   return NextResponse.next();
 }
+
+// export const config = {
+//   matcher: ["/"], //Áp dụng middleware này cho trang chủ
+// };
 
 // See "Matching Paths" below to learn more
 export const config = {

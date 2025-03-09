@@ -17,16 +17,15 @@ export default function Header() {
       try {
         const serverToken = await getServerCookie("jwtToken");
         if (!serverToken) {
-          console.error("Token không tồn tại");
+          console.log("Token không tồn tại");
           return;
         }
 
         const decodedToken = jwtDecode(serverToken);
         const roles = decodedToken.role;
-        console.log("role", roles[0]);
 
         setIsLoggedIn(!!serverToken);
-        setIsAdmin(roles[0] === "ADMIN"); // Kiểm tra quyền admin
+        setIsAdmin(roles[0] === "ADMIN");
       } catch (error) {
         console.error("Lỗi giải mã token:", error);
       }
@@ -43,7 +42,7 @@ export default function Header() {
   };
 
   if (isLoggedIn === null) {
-    return null; // hoặc một Skeleton UI tạm thời
+    return null;
   }
 
   return (
@@ -67,7 +66,7 @@ export default function Header() {
 
             {isLoggedIn ? (
               <>
-                {isAdmin && ( // Chỉ hiển thị nếu là admin
+                {isAdmin && (
                   <li>
                     <Link
                       href="/dashboard"
@@ -90,7 +89,7 @@ export default function Header() {
                 <li>
                   <button
                     onClick={handleLogout}
-                    className="w-24 h-10 cursor-pointer px-5 py-2 font-mono bg-white text-gray-800 rounded-lg shadow-md hover:bg-red-600 hover:text-white transition-colors duration-300"
+                    className="w-28 h-10 mx-2 cursor-pointer px-5 py-2 font-semibold bg-gray-100 text-gray-700 rounded-md shadow-sm hover:bg-red-500 hover:text-white transition-all duration-300 scale-105 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 text-base"
                   >
                     Logout
                   </button>
@@ -100,7 +99,7 @@ export default function Header() {
               <li>
                 <Link
                   href="/login"
-                  className="w-24 h-10 cursor-pointer px-5 py-2 font-mono bg-white text-gray-800 rounded-lg shadow-md hover:bg-green-500 hover:text-white transition-colors duration-300"
+                  className="w-28 h-10 mx-2 cursor-pointer px-5 py-2 font-semibold bg-gray-100 text-gray-700 rounded-md shadow-sm hover:bg-blue-500 hover:text-white transition-all duration-300 scale-105 focus:outline-none focus:ring-blue-500 focus:ring-opacity-50 text-base"
                 >
                   Login
                 </Link>
