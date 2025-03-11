@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { getServerCookie } from "./components/GetServerCookie";
+import ProductList from "./components/ProductList";
 
 function Home() {
   const [token, setToken] = useState<string | null>(null);
@@ -23,7 +24,8 @@ function Home() {
 
   return (
     <div>
-      <h1>Trang chủ</h1>
+      <ProductList apiUrl="http://localhost:8080/api/products/all" />{" "}
+      {/* Sử dụng component và truyền apiUrl */}
     </div>
   );
 }
