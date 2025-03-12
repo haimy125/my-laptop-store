@@ -7,7 +7,8 @@ import { getServerCookie } from "@/app/components/GetServerCookie";
 
 interface Product {
   idProduct: number;
-  brand: string;
+  brand: number;
+  brandName: string;
   modelName: string;
   cpu: string;
   ram: string;
@@ -227,7 +228,7 @@ const ProductTable: React.FC<ProductTableProps> = ({
                   />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                  {product.brand}
+                  {product.brandName}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
                   {product.modelName}

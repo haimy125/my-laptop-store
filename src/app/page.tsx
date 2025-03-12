@@ -4,9 +4,16 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { getServerCookie } from "./components/GetServerCookie";
 import ProductList from "./components/ProductList";
+import Header from "./components/Header";
 
 function Home() {
   const [token, setToken] = useState<string | null>(null);
+  const [searchResults, setSearchResults] = useState([]);
+  const apiUrl = "http://localhost:8080/api/products/all";
+
+  const handleSearchResults = (results) => {
+    setSearchResults(results);
+  };
 
   useEffect(() => {
     async function fetchToken() {
@@ -19,13 +26,13 @@ function Home() {
       }
     }
 
-    fetchToken(); // Chạy khi component mount
+    fetchToken();
   }, []);
 
   return (
     <div>
-      <ProductList apiUrl="http://localhost:8080/api/products/all" />{" "}
-      {/* Sử dụng component và truyền apiUrl */}
+      <Header onSearchResults={handleSearchResults} />
+      <ProductList products={searchResults} apiUrl={apiUrl} pageSize={8} />
     </div>
   );
 }
